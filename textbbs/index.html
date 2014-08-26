@@ -7,7 +7,7 @@
     <body>
         <h1>テキスト掲示板</h1>
         <hr>
-        <form action="" method="post">
+        <form action="write" method="post">
         <table>
             <tr>
                 <th class="write_form">お名前：</th>
@@ -19,7 +19,14 @@
             </tr>
             <tr>
                 <th class="write_form">タイトル：</th>    
-                <td><input type="text" name="email" size="30" value="" /></td>
+                <td><input type="text" name="title" size="30" value="" /></td>
+            </tr>
+            <tr>
+            <th class="write_form">本文：</th>
+                <td><textarea name="textaera" rows="5" cols="50" value="" ></textarea></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="投稿"/></td>
             </tr>
     	</table>
         </form>
