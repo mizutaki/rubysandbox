@@ -1,1 +1,1 @@
-not implements
+require 'erb'	<% template = ERB.new(File.read('shared/_form.erb')) %>	<%= template.result(binding) %>

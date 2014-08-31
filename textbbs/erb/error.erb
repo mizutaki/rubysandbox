@@ -1,35 +1,7 @@
-<html lang="ja">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="stylesheet" type="text/css" href="index.css" />
-        <title>テキスト掲示板</title>
-    </head>
-    <body>
-        <h1>テキスト掲示板</h1>
-        <hr>
-        <form action="write" method="post">
-        <table>
-            <tr>
-                <th class="write_form">お名前：</th>
-                <td><input type="text" name="name" size="30" value="" /></td>
-            </tr>
-            <tr>
-                <th class="write_form">メールアドレス：</th>    
-                <td><input type="text" name="email" size="30" value="" /></td>
-            </tr>
-            <tr>
-                <th class="write_form">タイトル：</th>    
-                <td><input type="text" name="title" size="30" value="" /></td>
-            </tr>
-            <tr>
-            <th class="write_form">本文：</th>
-                <td><textarea name="textarea" rows="5" cols="50" value="" ></textarea></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="投稿"/></td>
-            </tr>
-    	</table>
-        </form>
+<%require 'erb' %>
+        <% template = ERB.new(File.read('shared/_form.erb')) %>
+        <%= template.result(binding) %>
+        <p> エラー</p>      
         <script>
         	alert('入力項目が不足しています。')
         </script>
