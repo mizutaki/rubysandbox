@@ -1,5 +1,7 @@
 require 'webrick'
+require 'pstore'
 require 'pry'
+
 server_config = {
     :Port => 8099,
     :DocumentRoot => '.',
@@ -10,9 +12,12 @@ server_config = {
 server = WEBrick::HTTPServer.new(server_config)
 
 server.mount_proc("/write") { |req, res|
-    #binding.pry
     begin
         validate_parameter req.query
+        db = PStore.new('pstore', true)
+        db.transaction{ |psotre|
+            psotre[req.request_time]= req.query
+        }
         template = ERB.new(File.read('erb/write.erb'))
         res.body << template.result(binding)    
     rescue ArgumentError => ae
@@ -29,10 +34,10 @@ def validate_parameter(query)
     if query['name'].empty?
         raise ArgumentError.new("名前を入力して下さい。") 
     end
-    p query
     if query['textarea'].empty?
         raise ArgumentError.new("本文を入力して下さい。")
     end
+	#TODO judge a address
 end
 
 server.start

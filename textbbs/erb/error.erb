@@ -1,7 +1,6 @@
 <%require 'erb' %>
         <% template = ERB.new(File.read('shared/_form.erb')) %>
         <%= template.result(binding) %>
-        <p> エラー</p>      
         <script>
         	alert('入力項目が不足しています。')
         </script>

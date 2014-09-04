@@ -1,3 +1,5 @@
+<% require 'erb' %>
+<% require 'pstore' %>
 <html lang="ja">
     <head>
         <meta charset="UTF-8" />
@@ -29,4 +31,21 @@
                 <td><input type="submit" value="投稿"/></td>
             </tr>
        	</table>
+        <% db = PStore.new('pstore', true) %>
+        <% db.transaction(true) do  %>
+            <% db.roots.each { |key|  %>
+        <table>
+            <tr>
+                <td><%= db[key]['title'].force_encoding("UTF-8")%></td>
+                <td>投稿者</td><td><%= db[key]['name'].force_encoding("UTF-8")%>
+                </td><td><%=key%></td>
+            </tr>
+            <tr>
+                <td><%= db[key]['textarea'].force_encoding("UTF-8")%></td>
+            </tr>
+            <hr>
+        </table>
+            <% } %>
+        <% end  %>
+        <hr>
     </form>
