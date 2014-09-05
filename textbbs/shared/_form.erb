@@ -36,8 +36,8 @@
             <% db.roots.each { |key|  %>
         <table>
             <tr>
-                <td><%= db[key]['title'].force_encoding("UTF-8")%></td>
-                <td>投稿者</td><td><%= db[key]['name'].force_encoding("UTF-8")%>
+                <td class="contribution_name"><%= db[key]['title'].force_encoding("UTF-8")%></td>
+                <td>投稿者：</td><td class="contribution_title"><%= db[key]['name'].force_encoding("UTF-8")%>
                 </td><td><%=key%></td>
             </tr>
             <tr>

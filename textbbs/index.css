@@ -2,3 +2,15 @@
 	text-align:right;
 	color: #0000ff;
 }
+.contribution_title {
+	font-weight:bold;
+	color: #FFFFF0;
+}
+.contribution_name {
+	font-weight:bold;
+	color: #40E0D0;
+}
+body {
+	background-color: #cc9999;
+
+}
