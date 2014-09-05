@@ -37,6 +37,9 @@ def validate_parameter(query)
     if query['textarea'].empty?
         raise ArgumentError.new("本文を入力して下さい。")
     end
+	if query['title'].empty?
+		query['title'] = '無題'
+	end
 	#TODO judge a address
 end
 
