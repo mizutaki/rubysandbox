@@ -14,9 +14,10 @@ server = WEBrick::HTTPServer.new(server_config)
 server.mount_proc("/write") { |req, res|
     begin
         validate_parameter req.query
+        request_time = req.request_time.strftime('%Y/%m/%d %H:%M:%S')
         db = PStore.new('pstore', true)
         db.transaction{ |psotre|
-            psotre[req.request_time]= req.query
+            psotre[request_time]= req.query
         }
         template = ERB.new(File.read('erb/write.erb'))
         res.body << template.result(binding)    
