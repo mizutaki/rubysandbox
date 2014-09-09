@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <th class="write_form">メールアドレス：</th>    
-                <td><input type="text" name="email" size="30" value="" /></td>
+                <td><input type="email" name="email" size="30" value="" /></td>
             </tr>
             <tr>
                 <th class="write_form">タイトル：</th>    
@@ -33,7 +33,13 @@
        	</table>
         <% db = PStore.new('pstore', true) %>
         <% db.transaction(true) do  %>
+            <%= p 'before' %>
+            <%= p db.roots %>
+            <% db.roots.sort! %>
+            <%= p db.roots %>
+            <%= p 'after' %>
             <% db.roots.each { |key|  %>
+
         <table>
             <tr>
                 <td class="contribution_name"><%= db[key]['title'].force_encoding("UTF-8")%></td>
