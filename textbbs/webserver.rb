@@ -19,6 +19,7 @@ server.mount_proc("/write") { |req, res|
         db.transaction{ |psotre|
             psotre[request_time]= req.query
         }
+
         template = ERB.new(File.read('erb/write.erb'))
         res.body << template.result(binding)    
     rescue ArgumentError => ae
