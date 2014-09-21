@@ -4,7 +4,8 @@
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" type="text/css" href="index.css" />
-        <title>テキスト掲示板</title>
+        <script src="/js/reply.js"></script>
+		<title>テキスト掲示板</title>
     </head>
     <body>
         <h1>テキスト掲示板</h1>
@@ -36,8 +37,8 @@
         <table>
             <tr>
                 <td class="contribution_name"><%= value['title'].force_encoding("UTF-8")%></td>
-                <td>投稿者：</td><td class="contribution_title"><%= value['name'].force_encoding("UTF-8")%>
-                </td><td><%=key%></td>
+                <td>投稿者：</td><td class="contribution_title"><%= value['name'].force_encoding("UTF-8")%></td>				<td><%=key%></td>
+				<td><a href="javascript:void(0)"onClick="reply('<%=key%>');">[返信]</a></td>
             </tr>
             <tr>
                 <td><%= value['textarea'].force_encoding("UTF-8")%></td>

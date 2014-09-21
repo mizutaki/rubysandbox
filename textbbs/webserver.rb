@@ -28,6 +28,10 @@ server.mount_proc("/write") { |req, res|
     end
 }
 
+server.mount_proc("/reply") {|req, res|
+	p 'reply skeleton'
+}
+
 trap(:INT) {
     server.shutdown
 }
