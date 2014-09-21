@@ -22,11 +22,11 @@
             </tr>
             <tr>
                 <th class="write_form">タイトル：</th>    
-                <td><input type="text" name="title" size="30" value="" /></td>
+                <td><input type="text" id="title" name="title" size="30" value="" /></td>
             </tr>
             <tr>
             <th class="write_form">本文：</th>
-                <td><textarea name="textarea" rows="5" cols="50" value="" ></textarea></td>
+                <td><textarea id="textarea" name="textarea" rows="5" cols="50" value="" ></textarea></td>
             </tr>
             <tr>
                 <td><input type="submit" value="投稿"/></td>
@@ -38,7 +38,7 @@
             <tr>
                 <td class="contribution_name"><%= value['title'].force_encoding("UTF-8")%></td>
                 <td>投稿者：</td><td class="contribution_title"><%= value['name'].force_encoding("UTF-8")%></td>				<td><%=key%></td>
-				<td><a href="javascript:void(0)"onClick="reply('<%=key%>');">[返信]</a></td>
+				<td><a href="javascript:void(0)"onClick="reply('<%= value['title'].force_encoding("UTF-8") %>', '<%=value['textarea'].force_encoding("UTF-8") %>');">[返信]</a></td>
             </tr>
             <tr>
                 <td><%= value['textarea'].force_encoding("UTF-8")%></td>
