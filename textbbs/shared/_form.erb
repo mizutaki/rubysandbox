@@ -37,7 +37,7 @@
         <table>
             <tr>
                 <td class="contribution_name"><%= value['title'].force_encoding("UTF-8")%></td>
-                <td>投稿者：</td><td class="contribution_title"><%= value['name'].force_encoding("UTF-8")%></td>				<td><%=key%></td>
+                <td>投稿者：</td><td class="contribution_title"><%= value['name'].force_encoding("UTF-8")%></td>				<td><%= value['request_time'].force_encoding("UTF-8")%></td>
 				<td><a href="javascript:void(0)"onClick="reply('<%= value['title'].force_encoding("UTF-8") %>', '<%=value['textarea'].force_encoding("UTF-8") %>');">[返信]</a></td>
             </tr>
             <tr>
