@@ -1,5 +1,5 @@
 <% require 'erb' %>
-<% require_relative 'order' %>
+<% require_relative 'page' %>
 <html lang="ja">
     <head>
         <meta charset="UTF-8" />
@@ -32,7 +32,7 @@
                 <td><input type="submit" value="投稿"/></td>
             </tr>
        	</table>
-        <% hash = Order.desc_order %>
+        <% hash = Page.new.order %>
         <% hash.each do |key, value| %>
         <table>
             <tr>

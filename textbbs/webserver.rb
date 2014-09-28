@@ -19,12 +19,12 @@ server.mount_proc("/write") { |req, res|
         db.transaction{ |pstore|
             ary = pstore.roots
             if ary.empty?
-                pstore[0] = req.query
+				#キーは、1から始まる
+                pstore[1] = req.query
             else
                 pstore[ary.length + 1] = req.query
             end
         }
-
         template = ERB.new(File.read('erb/write.erb'))
         res.body << template.result(binding)    
     rescue ArgumentError => ae
