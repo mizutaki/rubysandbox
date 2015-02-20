@@ -4,6 +4,7 @@ require 'fileutils'
 file_name = ARGV[0]
 
 p file_name
+raise ArgumentError.new("引数がnilです。") if file_name.nil?
 raise IOError.new("ファイル#{file_name}が存在しません。") unless File.exist?(file_name)
 raise IOError.new("拡張子がcsvではありません。") unless File.extname(file_name).eql?(".csv")
 
