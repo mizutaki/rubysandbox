@@ -27,7 +27,7 @@ loop {
   end
 }
 
-csv.flatten.each do |folder_name|
+csv.flatten.compact.each do |folder_name|
   p folder_name
   FileUtils.mkdir(folder_name) unless FileTest.exist?(folder_name)
 end
