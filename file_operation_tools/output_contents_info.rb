@@ -12,6 +12,7 @@ def current_content(dirs)
     else
       puts "DIR"
       puts content
+      current_content(Dir.glob("#{content}/*")) 
     end
   end
 end
