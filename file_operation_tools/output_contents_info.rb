@@ -1,7 +1,11 @@
 # coding: utf-8
 require 'csv'
 
-current_dir = File.expand_path(File.dirname(__FILE__))
+if ARGV[0].nil?
+  current_dir = File.expand_path(File.dirname(__FILE__))
+else
+  current_dir = ARGV[0]
+end
 dirs = Dir.glob("#{current_dir}/*")
 
 def current_content(dirs)
