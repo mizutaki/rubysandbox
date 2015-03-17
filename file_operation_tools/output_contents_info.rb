@@ -1,20 +1,35 @@
 # coding: utf-8
-current_dir = File.expand_path(File.dirname(__FILE__))
+require 'csv'
+require 'pp'
+
+if ARGV[0].nil?
+  current_dir = File.expand_path(File.dirname(__FILE__))
+else
+  current_dir = ARGV[0]
+end
 dirs = Dir.glob("#{current_dir}/*")
 
-def current_content(dirs)
+def current_content(hash, parent_dir, dirs)
+  arr = []
   dirs.each do |content|
-  
     if FileTest.file?(content)
-      puts "FILE" 
-      puts content
-      puts "#{File.size(content)}byte"
+      arr << content
     else
-      puts "DIR"
-      puts content
-      current_content(Dir.glob("#{content}/*")) 
+      arr << content
+      hash[parent_dir] = arr
+      parent_dir = File.basename(content)
+      current_content(hash, parent_dir, Dir.glob("#{content}/*")) 
     end
   end
 end
 
-current_content(dirs)
+parent_dir = File.basename(current_dir)
+hash = {}
+current_content(hash, parent_dir, dirs)
+pp hash
+
+CSV.open('test.csv', "w") do |writer|
+  hash.each_key do |value|
+    writer <<  [value]
+  end
+end
