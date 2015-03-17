@@ -27,3 +27,9 @@ parent_dir = File.basename(current_dir)
 hash = {}
 current_content(hash, parent_dir, dirs)
 pp hash
+
+CSV.open('test.csv', "w") do |writer|
+  hash.each_key do |value|
+    writer <<  [value]
+  end
+end
