@@ -17,8 +17,9 @@ else
 end
 dirs = Dir.glob("#{current_dir}/*")
 
-def current_content(hash, parent_dir, dirs)
+def current_content(hash, parent_content, dirs)
   arr = []
+  parent_dir = nil
   dirs.each do |content|
     c = Content.new(content, content.size)
     if FileTest.file?(content)
@@ -27,17 +28,16 @@ def current_content(hash, parent_dir, dirs)
     else
       c = Content.new(content)
       arr << c
-      hash[parent_dir] = arr
-      parent_dir = File.basename(content)
-      current_content(hash, parent_dir, Dir.glob("#{content}/*")) 
+      current_content(hash, content, Dir.glob("#{content}/*"))
     end
   end
+  parent_dir = File.basename(parent_content)
+  #parent_dir = File.basename(parent_content) if parent_dir.nil?
+  hash[parent_dir] = arr
 end
 
-parent_dir = File.basename(current_dir)
 hash = {}
-current_content(hash, parent_dir, dirs)
-
+current_content(hash, current_dir, dirs)
 CSV.open('test.csv', "w") do |writer|
   writer << ['parent_dir','full_path', 'size']
   hash.each do |parent,contents|
