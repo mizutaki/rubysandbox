@@ -2,15 +2,23 @@ require 'rbconfig'
 
 module FullPathGenerator
   include RbConfig
-	
+
+  FILENAME_EXTENSION = %W(264 68k aac ac3 aif ani asf avi bak bas bat bmp CMD cmd COM dgca divx docx eml exe flv hdp htm jpg lnk lwo lzh m4a mda mdb mdw mht mid mka mkv moov mov mp2 mp3 mp4 mpg odt oga ogg ogm ogv ogx png psd qt sub wma wmv xpg zip zipx)
+
   #フルパスを作成する
   def generate_fullpath(hierarchy)
-    concatenate_string = ""
+    fullpath = ""
     hierarchy.times {
-      concatenate_string << random_character
-      concatenate_string << "/"
+      fullpath << "/"
+      fullpath << random_character
+      
     }
-    puts concatenate_string
+    fullpath << "/"
+    fullpath << random_character
+    fullpath << "."
+    fullpath << FILENAME_EXTENSION.sample
+    puts fullpath
+    return fullpath
   end
 
   private
@@ -24,6 +32,3 @@ module FullPathGenerator
       osn = CONFIG["target_os"].downcase
     end
 end
-
-include FullPathGenerator
-FullPathGenerator.generate_fullpath(9)
