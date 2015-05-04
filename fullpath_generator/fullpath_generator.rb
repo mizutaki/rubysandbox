@@ -30,7 +30,7 @@ module FullPathGenerator
     end
     #ランダムな文字列を作成する（10文字）
     def random_character
-      return ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a).sample(10).join
+      return ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a + ("あ".."ん").to_a + ("亜".."和").to_a).sample(10).join
     end
 
     #TODO 実行環境の判定を行って、環境毎のフルパスを作成できるようにする
