@@ -7,6 +7,7 @@ module FullPathGenerator
 
   #フルパスを作成して、ファイルに書き込む
   def generate_fullpath(number)
+    file_name = get_file_name
     number.times {
       fullpath = ""
       10.times {
@@ -17,17 +18,37 @@ module FullPathGenerator
       fullpath << random_character
       fullpath << "."
       fullpath << FILENAME_EXTENSION.sample
-      write_file(fullpath)
+      write_file(file_name,fullpath)
     }
   end
 
   private
+    #フルパスを書き出すファイルの名前を取得する
+    #連番で振られていく
+    def get_file_name
+      rename = ""
+      contents = Dir::entries(".")
+      0.upto(contents.length) {|num|
+        if num == 0
+          content_name = "fullpaths.txt"
+        else
+          content_name = "fullpaths_" + num.to_s + ".txt"
+        end
+        unless contents.include?(content_name)
+          rename = content_name
+          break
+        end
+      }
+      return rename
+    end
+
     #ファイルに追記型で書き込む
-    def write_file(fullpath)
-      File.open("test.txt", "a") do |file|
+    def write_file(file_name, fullpath)
+      File.open(file_name, "a") do |file|
         file.puts fullpath
       end
     end
+
     #ランダムな文字列を作成する（10文字）
     def random_character
       return ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a + ("あ".."ん").to_a + ("亜".."和").to_a).sample(10).join
