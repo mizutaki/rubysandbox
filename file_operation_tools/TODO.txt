@@ -1,0 +1,5 @@
+### TODO
+* XML書き出し
+	- REXML
+* CSVフォーマット見やすく
+* Class化
