@@ -1,4 +1,5 @@
 require 'rbconfig'
+require 'csv'
 
 module FullPathGenerator
   include RbConfig
@@ -7,32 +8,31 @@ module FullPathGenerator
 
   #フルパスを作成して、ファイルに書き込む
   def generate_fullpath(number)
-    file_name = get_file_name
-    number.times {
-      fullpath = ""
-      10.times {
-        fullpath << "/"
-        fullpath << random_character
-      }
-      fullpath << "/"
-      fullpath << random_character
-      fullpath << "."
-      fullpath << FILENAME_EXTENSION.sample
-      write_file(file_name,fullpath)
-    }
+    file_name = get_file_name(".txt")
+    fullpaths = get_fullpaths(number)
+    fullpaths.each do |fullpath|
+      write_file(file_name, fullpath)
+    end
+  end
+
+  #フルパスを作成して、CSVファイルに書き込む
+  def generate_fullpath_csv(number)
+    file_name = get_file_name(".csv")
+    fullpaths = get_fullpaths(number)
+    write_file_csv(file_name, fullpaths)
   end
 
   private
     #フルパスを書き出すファイルの名前を取得する
     #連番で振られていく
-    def get_file_name
+    def get_file_name(filename_extension)
       rename = ""
       contents = Dir::entries(".")
       0.upto(contents.length) {|num|
         if num == 0
-          content_name = "fullpaths.txt"
+          content_name = "fullpaths" + filename_extension
         else
-          content_name = "fullpaths_" + num.to_s + ".txt"
+          content_name = "fullpaths_" + num.to_s + filename_extension
         end
         unless contents.include?(content_name)
           rename = content_name
@@ -42,10 +42,34 @@ module FullPathGenerator
       return rename
     end
 
+    #フルパスを作成して、フルパスのリストを返す
+    def get_fullpaths(number)
+      fullpaths = []
+      number.times {
+        fullpath = ""
+        10.times {
+          fullpath << "/"
+          fullpath << random_character
+        }
+        fullpath << "/"
+        fullpath << random_character
+        fullpath << "."
+        fullpath << FILENAME_EXTENSION.sample
+        fullpaths << fullpath
+      }
+      return fullpaths
+    end
+
     #ファイルに追記型で書き込む
     def write_file(file_name, fullpath)
       File.open(file_name, "a") do |file|
         file.puts fullpath
+      end
+    end
+
+    def write_file_csv(file_name, fullpaths)
+      CSV.open(file_name, "a") do |writer|
+        writer << fullpaths
       end
     end
 
