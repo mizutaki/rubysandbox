@@ -1,5 +1,7 @@
 require 'rbconfig'
 require 'csv'
+require 'open-uri'
+require 'nokogiri'
 
 module FullPathGenerator
   include RbConfig
@@ -49,10 +51,10 @@ module FullPathGenerator
         fullpath = ""
         10.times {
           fullpath << "/"
-          fullpath << random_character
+          fullpath << random_word
         }
         fullpath << "/"
-        fullpath << random_character
+        fullpath << random_word
         fullpath << "."
         fullpath << FILENAME_EXTENSION.sample
         fullpaths << fullpath
@@ -73,9 +75,20 @@ module FullPathGenerator
       end
     end
 
-    #ランダムな文字列を作成する（10文字）
-    def random_character
-      return ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a + ("あ".."ん").to_a + ("亜".."和").to_a).sample(10).join
+    #ランダムな文字列を作成する
+    #wikipediaよりランダムに単語を抽出する
+    def random_word
+      #str = ((0..9).to_a + ("a".."z").to_a + ("A".."Z").to_a + ("あ".."ん").to_a)
+      wiki_url = ["http://wikipedia.org/wiki/Special:Randompage", "http://ja.wikipedia.org/wiki/Special:Randompage"]
+      url = wiki_url.sample(1).first
+      charset = nil
+      html = open(url) do |f|
+        charset = f.charset
+        f.read
+      end
+      doc = Nokogiri::HTML.parse(html, nil, charset)
+      word = doc.xpath('//h1[@id="firstHeading"]').inner_text
+      return word
     end
 
     #TODO 実行環境の判定を行って、環境毎のフルパスを作成できるようにする
