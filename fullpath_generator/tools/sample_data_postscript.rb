@@ -14,7 +14,6 @@ words = []
 number.times{
 
   url = wiki_url.sample(1).first
-  puts url.class
   charset = nil
   html = open(url) do |f|
     charset = f.charset
