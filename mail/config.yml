@@ -1,0 +1,7 @@
+mail:
+  to: 宛先
+  address: smtpサーバ
+  port: ポート
+  username: 接続ユーザ
+  password: 接続パスワード
+  domain: ドメイン名
